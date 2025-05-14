@@ -1,7 +1,35 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "incremental": true,
+    "noEmit": true,
+    "types": ["vitest/globals"],
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
+  },
+  "references": [{ "path": "./tsconfig.node.json" }],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "./.eslintrc.js",
+    "./vite.config.ts",
+    "./playwright.config.ts",
+    "./google-picker.d.ts"
+  ],
+  "exclude": ["node_modules"]
 }
