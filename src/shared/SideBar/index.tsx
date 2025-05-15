@@ -1,131 +1,125 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Nav, Sidenav } from "rsuite";
-import spinner from "../../assets/home.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "~/store";
 import { ROUTES } from "../../components/constants/routes";
 import CompanySwitcher from "../../components/lib/companySwitcher/CompanySwitcher";
-import { useSelector } from "react-redux";
-import { RootState } from "~/store";
+import {} from "rsuite";
+import PeopleSpeakerIcon from "@rsuite/icons/PeopleSpeaker";
+import PageNextIcon from "@rsuite/icons/PageNext";
+import PagePreviousIcon from "@rsuite/icons/PagePrevious";
+import MemberIcon from "@rsuite/icons/Member";
+import PeoplesMapIcon from "@rsuite/icons/PeoplesMap";
+import UserBadgeIcon from "@rsuite/icons/UserBadge";
+import { toggleSidebar } from "../../store/common/CommonSlice";
 
-interface Props {
-  expanded: boolean;
-}
-
-export const Sidebar = ({ expanded }: Props) => {
-  const [activeKey, onSetActiveKey] = useState("home");
+export const Sidebar = () => {
+  const [activeKey, setActiveKey] = useState("home");
   const navigate = useNavigate();
   const { selectedCompany } = useSelector((state: RootState) => state.company);
+  const dispatch = useDispatch();
+  const { isExpanded } = useSelector((state: RootState) => state.common);
 
-  const onNavigateTo = (to: string, key: string) => {
-    onSetActiveKey(key);
+  const navigateTo = (to: string, key: string) => {
+    setActiveKey(key);
     navigate(to);
   };
-
+  const onToggleSidebarView = () => {
+    dispatch(toggleSidebar());
+  };
   return (
     <div
-      className={`fixed inset-y-0 z-40 mt-0 flex flex-col border-r bg-white pt-[60px] shadow-md transition-all duration-300 ease-in-out ${
-        expanded ? "w-60" : "w-20"
+      className={`fixed inset-y-0 z-40 flex flex-col bg-purple-300 pt-16 transition-all duration-300 ease-in-out ${
+        isExpanded ? "w-64" : "w-20"
       }`}>
-      {/* Top Header Branding */}
+      {/* Brand Header */}
       <div
-        className={`fixed top-0 z-50 flex h-[60px] items-center border-b border-gray-200 bg-blue-600 text-white ${
-          expanded ? "w-60 px-5 justify-between" : "w-20 px-4 justify-center"
+        className={`fixed top-0 z-50 flex h-16 items-center text-black ${
+          isExpanded ? "w-64 px-4 justify-between" : "w-20 px-3 justify-center"
         }`}>
         <Link
           to={ROUTES.BASE_URL}
           className="flex items-center gap-2 text-lg font-semibold">
-          <img src={spinner} alt="HR" width={24} height={24} />
-          {expanded && <span>HR DASHBOARD</span>}
+          <MemberIcon className="text-purple-400" />
+          {isExpanded && <span className="text-black">HR DASHBOARD</span>}
         </Link>
+
+        <button
+          onClick={onToggleSidebarView}
+          className="text-black-400 hover:text-black transition-colors rounded-full p-1 hover:bg-slate-700">
+          {isExpanded ? <PageNextIcon /> : <PagePreviousIcon />}
+        </button>
       </div>
 
-      <div className={`flex-1 p-2.5 overflow-y-auto`}>
-        {/* Company Dropdown */}
-        {expanded && <CompanySwitcher />}
+      <div className="flex-1 overflow-y-auto px-3 py-6">
+        {/* Company Switcher */}
+        {isExpanded && (
+          <div className="mb-6">
+            <CompanySwitcher />
+          </div>
+        )}
 
-        <Sidenav
-          expanded={expanded}
-          appearance="subtle"
-          className="sidebar-nav !text-sm !text-black py-5">
-          <Sidenav.Body>
-            <Nav
-              activeKey={activeKey}
-              onSelect={onSetActiveKey}
-              className="flex flex-col gap-1">
-              {/* Home */}
-              <Nav.Item
-                eventKey="home"
-                icon={
-                  <img
-                    src={spinner}
-                    alt="Home"
-                    className="rs-sidenav-item-icon scale-125"
-                    width={20}
-                    height={20}
-                  />
-                }
-                onClick={() => onNavigateTo(ROUTES.BASE_URL, "home")}
-                className={`flex items-center gap-4 rounded-md px-2 py-2 text-gray-800 transition hover:bg-blue-100 ${
-                  activeKey === "home"
-                    ? "bg-blue-100 font-semibold text-blue-600"
-                    : ""
+        <nav className="flex flex-col gap-2">
+          {/* Home */}
+          <button
+            onClick={() => navigateTo(ROUTES.BASE_URL, "home")}
+            className={`flex items-center rounded-lg px-3 py-2.5 transition-all ${
+              activeKey === "home"
+                ? "bg-purple-600 text-black"
+                : "text-black-300 hover:bg-slate-700"
+            }`}>
+            <UserBadgeIcon className={isExpanded ? "mr-3" : "mx-auto"} />
+            {isExpanded && <span>Dashboard</span>}
+          </button>
+
+          {/* Conditional Navigation Items */}
+          {selectedCompany && (
+            <>
+              <button
+                onClick={() => navigateTo(ROUTES.EMPLOYEES, "employees")}
+                className={`flex items-center rounded-lg px-3 py-2.5 transition-all ${
+                  activeKey === "employees"
+                    ? "bg-purple-600 text-black"
+                    : "text-black-300 hover:bg-slate-700"
                 }`}>
-                {expanded && <span className="text-[16px]">Home</span>}
-              </Nav.Item>
+                <PeoplesMapIcon className={isExpanded ? "mr-3" : "mx-auto"} />
+                {isExpanded && <span>Employees List</span>}
+              </button>
 
-              {/* Items visible when company is selected */}
-              {selectedCompany && (
-                <>
-                  <Nav.Item
-                    eventKey="employees"
-                    icon={
-                      <img
-                        src={spinner}
-                        alt="Employees"
-                        className="rs-sidenav-item-icon scale-125"
-                        width={20}
-                        height={20}
-                      />
-                    }
-                    onClick={() => onNavigateTo(ROUTES.EMPLOYEES, "employees")}
-                    className={`flex items-center gap-4 rounded-md px-2 py-2 text-gray-800 transition hover:bg-blue-100 ${
-                      activeKey === "employees"
-                        ? "bg-blue-100 font-semibold text-blue-600"
-                        : ""
-                    }`}>
-                    {expanded && (
-                      <span className="text-[16px]">Employees List</span>
-                    )}
-                  </Nav.Item>
+              <button
+                onClick={() => navigateTo(ROUTES.ANNOUNCEMENT, "announcement")}
+                className={`flex items-center rounded-lg px-3 py-2.5 transition-all ${
+                  activeKey === "announcement"
+                    ? "bg-purple-600 text-black"
+                    : "text-black-300 hover:bg-slate-700"
+                }`}>
+                <PeopleSpeakerIcon
+                  className={isExpanded ? "mr-3" : "mx-auto"}
+                />
+                {isExpanded && <span>Announcement</span>}
+              </button>
+            </>
+          )}
+        </nav>
+      </div>
 
-                  <Nav.Item
-                    eventKey="announcement"
-                    icon={
-                      <img
-                        src={spinner}
-                        alt="Announcement"
-                        className="rs-sidenav-item-icon scale-125"
-                        width={20}
-                        height={20}
-                      />
-                    }
-                    onClick={() =>
-                      onNavigateTo(ROUTES.ANNOUNCEMENT, "announcement")
-                    }
-                    className={`flex items-center gap-4 rounded-md px-2 py-2 text-gray-800 transition hover:bg-blue-100 ${
-                      activeKey === "announcement"
-                        ? "bg-blue-100 font-semibold text-blue-600"
-                        : ""
-                    }`}>
-                    {expanded && (
-                      <span className="text-[16px]">Announcement</span>
-                    )}
-                  </Nav.Item>
-                </>
-              )}
-            </Nav>
-          </Sidenav.Body>
-        </Sidenav>
+      {/* User Profile Area (Optional) */}
+      <div
+        className={`mt-auto border-t border-slate-700 p-4 ${
+          isExpanded ? "" : "flex justify-center"
+        }`}>
+        <div
+          className={`flex items-center ${isExpanded ? "" : "justify-center"}`}>
+          <div className="h-8 w-8 rounded-full bg-purple-500 flex items-center justify-center text-black font-medium">
+            U
+          </div>
+          {isExpanded && (
+            <div className="ml-3">
+              <p className="text-sm font-medium text-black">User Name</p>
+              <p className="text-xs text-black-400">user@example.com</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { ROUTES } from "../../components/constants/routes";
 import { PrivateLayout } from "../../components/layout/PrivateLayout";
 import CompanySwitcher from "../../components/lib/companySwitcher/CompanySwitcher";
 import AnnouncementsFeed from "../../components/lib/Announcement/Announcementfeed";
+import EmployeeDetail from "../../components/lib/employee/employeeDetail";
 
 export const privateRoutes = [
   {
@@ -31,6 +32,14 @@ export const privateRoutes = [
         element: (
           <>
             <AnnouncementsFeed announcements={[]} />
+          </>
+        ),
+      },
+      {
+        path: `${ROUTES.EMPLOYEES}:id`,
+        element: (
+          <>
+            <EmployeeDetail />
           </>
         ),
       },
