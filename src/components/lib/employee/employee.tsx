@@ -11,19 +11,18 @@ import { RootState } from "~/store";
 
 export const EmployeeCardList = () => {
   const dispatch = useDispatch();
-  const { selectedCompany } = useSelector((state) => state.company);
+  const { selectedCompany } = useSelector((state: RootState) => state.company);
   const { employees, totalPages, page, loading } = useSelector(
     (state: RootState) => state.employee
   );
   const [currentPage, setCurrentPage] = useState(page);
-
   useEffect(() => {
-    dispatch(loadEmployees({ company: selectedCompany, page: currentPage }));
-  }, [selectedCompany, currentPage, dispatch]);
+    setCurrentPage(page);
+  }, [page]);
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
+      dispatch(loadEmployees({ company: selectedCompany, page: newPage }));
     }
   };
 
@@ -71,16 +70,16 @@ export const EmployeeCardList = () => {
       <div className="mt-8 flex justify-center items-center gap-2">
         <button
           className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 disabled:opacity-50"
-          disabled={currentPage === 1}
+          disabled={page === 1}
           onClick={() => handlePageChange(currentPage - 1)}>
           Previous
         </button>
         <span className="text-gray-700 text-sm">
-          Page {currentPage} of {totalPages}
+          Page {page} of {totalPages}
         </span>
         <button
           className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 disabled:opacity-50"
-          disabled={currentPage === totalPages}
+          disabled={page === totalPages}
           onClick={() => handlePageChange(currentPage + 1)}>
           Next
         </button>

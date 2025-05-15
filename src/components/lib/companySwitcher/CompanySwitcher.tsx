@@ -5,7 +5,6 @@ import {
   loadEmployees,
 } from "../../../store/employee/employeeSlice";
 import { useEffect } from "react";
-import EmployeeCardList from "../../../components/lib/employee/employee";
 import { RootState } from "~/store";
 
 const CompanySwitcher = () => {
@@ -44,7 +43,6 @@ const CompanySwitcher = () => {
           ))}
         </select>
       </div>
-      <EmployeeCardList />
     </>
   );
 };

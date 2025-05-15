@@ -21,7 +21,7 @@ const initialState: EmployeeState = {
   employees: [],
   page: 1,
   hasMore: true,
-  totalPages: 1, // ✅ Initial value
+  totalPages: 1,
   loading: false,
 };
 
@@ -54,7 +54,7 @@ const employeeSlice = createSlice({
           state.employees = action.payload.data;
           state.hasMore = action.payload.hasMore;
           state.totalPages = action.payload.totalPages;
-          state.page += 1;
+          state.page = state.page = action.meta.arg.page;
           state.loading = false;
         }
       );
