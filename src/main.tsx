@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { AppProvider } from "../src/shared/providers";
+import "./index.css";
 
 import { AppRoutes } from "../src/routes";
 

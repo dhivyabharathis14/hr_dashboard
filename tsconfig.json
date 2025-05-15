@@ -28,8 +28,7 @@
     "src/**/*.tsx",
     "./.eslintrc.js",
     "./vite.config.ts",
-    "./playwright.config.ts",
-    "./google-picker.d.ts"
+    "./playwright.config.ts"
   ],
   "exclude": ["node_modules"]
 }
