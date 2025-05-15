@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadEmployees } from "../../../store/employee/employeeSlice";
+import { loadEmployeesRequest } from "../../../store/employee/employeeSlice";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faGithub,
@@ -26,7 +26,9 @@ export const EmployeeCardList = () => {
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      dispatch(loadEmployees({ company: selectedCompany, page: newPage }));
+      dispatch(
+        loadEmployeesRequest({ company: selectedCompany, page: newPage })
+      );
     }
   };
 

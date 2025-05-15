@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { switchCompany } from "../../../store/company/companySlice";
+import { useEffect, ChangeEvent } from "react";
+import { RootState } from "~/store";
+import { switchCompanyRequest } from "../../../store/company/companySlice";
 import {
   resetEmployees,
-  loadEmployees,
+  loadEmployeesRequest,
 } from "../../../store/employee/employeeSlice";
-import { useEffect } from "react";
-import { RootState } from "~/store";
 
 const CompanySwitcher = () => {
   const dispatch = useDispatch();
@@ -13,15 +13,17 @@ const CompanySwitcher = () => {
     (state: RootState) => state.company
   );
 
-  const handleSwitch = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(switchCompany(e.target.value));
+  const handleSwitch = (e: ChangeEvent<HTMLSelectElement>) => {
+    const newCompany = e.target.value;
+    dispatch(switchCompanyRequest(newCompany));
     dispatch(resetEmployees());
-    dispatch(loadEmployees({ company: e.target.value, page: 1 }));
   };
 
   useEffect(() => {
-    dispatch(loadEmployees({ company: selectedCompany, page: 1 }));
-  }, []);
+    if (selectedCompany) {
+      dispatch(loadEmployeesRequest({ company: selectedCompany, page: 1 }));
+    }
+  }, [selectedCompany, dispatch]);
 
   return (
     <div className="bg-white shadow rounded-lg p-4 mx-auto mt-6 max-w-md">
@@ -36,19 +38,17 @@ const CompanySwitcher = () => {
           Select Company
         </label>
 
-        <div className="relative">
-          <select
-            id="company"
-            value={selectedCompany}
-            onChange={handleSwitch}
-            className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 rounded-md bg-white shadow-sm transition duration-200 ease-in-out cursor-pointer">
-            {companies.map((company) => (
-              <option key={company} value={company}>
-                {company}
-              </option>
-            ))}
-          </select>
-        </div>
+        <select
+          id="company"
+          value={selectedCompany}
+          onChange={handleSwitch}
+          className="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 rounded-md bg-white shadow-sm transition duration-200 ease-in-out cursor-pointer">
+          {companies.map((company) => (
+            <option key={company} value={company}>
+              {company}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );

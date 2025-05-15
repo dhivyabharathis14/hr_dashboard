@@ -12,8 +12,9 @@ const companySlice = createSlice({
     switchCompany: (state, action: PayloadAction<string>) => {
       state.selectedCompany = action.payload;
     },
+    switchCompanyRequest: (state, _action: PayloadAction<string>) => {},
   },
 });
 
-export const { switchCompany } = companySlice.actions;
+export const { switchCompany, switchCompanyRequest } = companySlice.actions;
 export default companySlice.reducer;
