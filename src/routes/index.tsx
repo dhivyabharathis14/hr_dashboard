@@ -1,7 +1,10 @@
+import { privateRoutes } from "../routes/private";
 import { Suspense } from "../components/provider/Suspense";
 import { Loader } from "../shared/Loader";
+import { useRoutes } from "react-router-dom";
 
 export const AppRoutes = () => {
+  const element = useRoutes([...privateRoutes]);
   return (
     <Suspense
       fallback={
@@ -9,7 +12,7 @@ export const AppRoutes = () => {
           <Loader />
         </div>
       }>
-      Route
+      {element}
     </Suspense>
   );
 };
