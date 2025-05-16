@@ -46,19 +46,12 @@ export const Sidebar = () => {
 
         <button
           onClick={onToggleSidebarView}
-          className="text-black-400 hover:text-black transition-colors rounded-full p-1 hover:bg-slate-700">
-          {isExpanded ? <PageNextIcon /> : <PagePreviousIcon />}
+          className="text-black-400 hover:text-black transition-colors rounded-full p-1 hover:bg-purple-500">
+          {isExpanded ? <PagePreviousIcon /> : <PageNextIcon />}
         </button>
       </div>
 
       <div className="flex-1 overflow-y-auto px-3 py-6">
-        {/* Company Switcher */}
-        {isExpanded && (
-          <div className="mb-6">
-            <CompanySwitcher />
-          </div>
-        )}
-
         <nav className="flex flex-col gap-2">
           {/* Home */}
           <button

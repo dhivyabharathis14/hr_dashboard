@@ -5,6 +5,7 @@ import CompanySwitcher from "../../components/lib/companySwitcher/CompanySwitche
 import AnnouncementsFeed from "../../components/lib/Announcement/Announcementfeed";
 import EmployeeDetail from "../../components/lib/employee/employeeDetail";
 import { ProtectedRoute } from "../../routes/protected/protected";
+import EmployeeDirectory from "../../components/lib/employee/employeeToggle";
 
 export const privateRoutes = [
   {
@@ -19,7 +20,7 @@ export const privateRoutes = [
             element: (
               <>
                 <CompanySwitcher />
-                <EmployeeCardList />
+                <EmployeeDirectory />
               </>
             ),
           },

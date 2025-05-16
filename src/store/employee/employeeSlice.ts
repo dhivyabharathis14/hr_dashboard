@@ -4,6 +4,12 @@ interface Employee {
   id: string;
   name: string;
   department: string;
+  designation?: string;
+}
+
+export interface EmployeeFilters {
+  department?: string;
+  designation?: string;
 }
 
 interface EmployeeState {
@@ -13,6 +19,9 @@ interface EmployeeState {
   totalPages: number;
   loading: boolean;
   error: any;
+  departments: string[];
+  designations: string[];
+  filters: EmployeeFilters;
 }
 
 const initialState: EmployeeState = {
@@ -22,7 +31,19 @@ const initialState: EmployeeState = {
   totalPages: 1,
   loading: false,
   error: null,
+  departments: [],
+  designations: [],
+  filters: {
+    department: "",
+    designation: "",
+  },
 };
+
+export interface LoadEmployeesRequestPayload {
+  company: string;
+  page: number;
+  filters?: EmployeeFilters;
+}
 
 const employeeSlice = createSlice({
   name: "employee",
@@ -37,7 +58,7 @@ const employeeSlice = createSlice({
     },
     loadEmployeesRequest: (
       state,
-      _action: PayloadAction<{ company: string; page: number }>
+      _action: PayloadAction<LoadEmployeesRequestPayload>
     ) => {
       state.loading = true;
       state.error = null;
@@ -49,18 +70,38 @@ const employeeSlice = createSlice({
         hasMore: boolean;
         totalPages: number;
         page: number;
+        departments?: string[];
+        designations?: string[];
       }>
     ) => {
-      const { data, hasMore, totalPages, page } = action.payload;
+      const { data, hasMore, totalPages, page, departments, designations } =
+        action.payload;
       state.employees = [...data];
       state.hasMore = hasMore;
       state.totalPages = totalPages;
       state.page = page;
       state.loading = false;
+
+      // Update departments and designations if provided
+      if (departments) {
+        state.departments = departments;
+      }
+      if (designations) {
+        state.designations = designations;
+      }
     },
     loadEmployeesFailure: (state, action: PayloadAction<any>) => {
       state.loading = false;
       state.error = action.payload;
+    },
+    setFilters: (state, action: PayloadAction<EmployeeFilters>) => {
+      state.filters = action.payload;
+    },
+    setDepartments: (state, action: PayloadAction<string[]>) => {
+      state.departments = action.payload;
+    },
+    setDesignations: (state, action: PayloadAction<string[]>) => {
+      state.designations = action.payload;
     },
   },
 });
@@ -70,6 +111,9 @@ export const {
   loadEmployeesRequest,
   loadEmployeesSuccess,
   loadEmployeesFailure,
+  setFilters,
+  setDepartments,
+  setDesignations,
 } = employeeSlice.actions;
 
 export default employeeSlice.reducer;
