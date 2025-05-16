@@ -18,6 +18,7 @@ import {
   faGithub,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
+import GoalSuggestion from "../../../components/lib/SuggestionBot.tsx/suggestion";
 
 const EmployeeDetail = () => {
   const { id } = useParams();
@@ -94,7 +95,6 @@ const EmployeeDetail = () => {
                       : "bg-yellow-500"
                   }`}></span>
               </div>
-
               <h3 className="text-xl font-bold text-gray-800">
                 {employee.name}
               </h3>
@@ -106,7 +106,9 @@ const EmployeeDetail = () => {
                   <FontAwesomeIcon icon={faLinkedin} size="lg" />
                 )}
                 {employee.githubUrl && (
-                  <FontAwesomeIcon icon={faGithub} size="lg" />
+                  <a href="https://github.com/dhivyabharathis14">
+                    <FontAwesomeIcon icon={faGithub} size="lg" />
+                  </a>
                 )}
                 {employee.facebookUrl && (
                   <FontAwesomeIcon icon={faFacebook} size="lg" />
@@ -195,6 +197,103 @@ const EmployeeDetail = () => {
                   <p>No message has been shared.</p>
                 </div>
               )}
+            </div>
+            <div className="bg-white rounded-xl shadow-sm p-6 my-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5 mr-2 text-blue-600"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                  />
+                </svg>
+                Performance & Recognition
+              </h3>
+
+              <div className="space-y-6">
+                {/* Star Rating */}
+                <div className="flex items-center">
+                  <span className="text-sm font-medium text-gray-700 w-32">
+                    Star Rating:
+                  </span>
+                  <div className="flex items-center gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <svg
+                        key={i}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill={
+                          i < (employee.starRating || 0) ? "#fbbf24" : "#e5e7eb"
+                        }
+                        viewBox="0 0 24 24"
+                        stroke="none"
+                        className="w-6 h-6">
+                        <path d="M12 .587l3.668 7.57L24 9.748l-6 5.848 1.416 8.268L12 19.896l-7.416 3.968L6 15.596 0 9.748l8.332-1.591z" />
+                      </svg>
+                    ))}
+                    <span className="ml-2 text-gray-600">
+                      {employee.starRating || 0}/5
+                    </span>
+                  </div>
+                </div>
+                {/* Performance Review */}
+                <div>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">
+                    Performance Review:
+                  </h4>
+                  {employee.performanceReview ? (
+                    <div className="bg-gray-50 p-4 rounded-lg">
+                      <p className="text-gray-700">
+                        {employee.performanceReview}
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">
+                      No performance reviews available.
+                    </p>
+                  )}
+                </div>
+
+                {/* Awards */}
+                <div>
+                  <h4 className="text-sm font-medium text-gray-700 mb-2">
+                    Awards Received:
+                  </h4>
+                  {employee.awards && employee.awards.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-2">
+                      {employee.awards.map((award, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-center bg-yellow-50 p-3 rounded-lg">
+                          <div className="mr-3 text-yellow-500">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="h-5 w-5"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor">
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                              />
+                            </svg>
+                          </div>
+                          <span className="text-gray-700">{award}</span>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">No awards received yet.</p>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -425,106 +524,7 @@ const EmployeeDetail = () => {
                 </div>
               </div>
             </div>
-
-            {/* Performance & Recognition Card */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-5 mr-2 text-blue-600"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                  />
-                </svg>
-                Performance & Recognition
-              </h3>
-
-              <div className="space-y-6">
-                {/* Star Rating */}
-                <div className="flex items-center">
-                  <span className="text-sm font-medium text-gray-700 w-32">
-                    Star Rating:
-                  </span>
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <svg
-                        key={i}
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill={
-                          i < (employee.starRating || 0) ? "#fbbf24" : "#e5e7eb"
-                        }
-                        viewBox="0 0 24 24"
-                        stroke="none"
-                        className="w-6 h-6">
-                        <path d="M12 .587l3.668 7.57L24 9.748l-6 5.848 1.416 8.268L12 19.896l-7.416 3.968L6 15.596 0 9.748l8.332-1.591z" />
-                      </svg>
-                    ))}
-                    <span className="ml-2 text-gray-600">
-                      {employee.starRating || 0}/5
-                    </span>
-                  </div>
-                </div>
-
-                {/* Performance Review */}
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">
-                    Performance Review:
-                  </h4>
-                  {employee.performanceReview ? (
-                    <div className="bg-gray-50 p-4 rounded-lg">
-                      <p className="text-gray-700">
-                        {employee.performanceReview}
-                      </p>
-                    </div>
-                  ) : (
-                    <p className="text-gray-500">
-                      No performance reviews available.
-                    </p>
-                  )}
-                </div>
-
-                {/* Awards */}
-                <div>
-                  <h4 className="text-sm font-medium text-gray-700 mb-2">
-                    Awards Received:
-                  </h4>
-                  {employee.awards && employee.awards.length > 0 ? (
-                    <div className="grid grid-cols-1 gap-2">
-                      {employee.awards.map((award, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center bg-yellow-50 p-3 rounded-lg">
-                          <div className="mr-3 text-yellow-500">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="h-5 w-5"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor">
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                              />
-                            </svg>
-                          </div>
-                          <span className="text-gray-700">{award}</span>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-gray-500">No awards received yet.</p>
-                  )}
-                </div>
-              </div>
-            </div>
+            <GoalSuggestion employee={employee.name} />
           </div>
         </div>
       </div>

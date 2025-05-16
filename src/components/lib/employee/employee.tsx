@@ -133,11 +133,13 @@ export const EmployeeCardList = () => {
                       size="lg"
                       className="opacity-40"
                     />
-                    <FontAwesomeIcon
-                      icon={faGithub}
-                      size="lg"
-                      className="opacity-40"
-                    />
+                    <a href="https://github.com/dhivyabharathis14">
+                      <FontAwesomeIcon
+                        icon={faGithub}
+                        size="lg"
+                        className="opacity-40"
+                      />
+                    </a>
                     <FontAwesomeIcon
                       icon={faFacebook}
                       size="lg"
