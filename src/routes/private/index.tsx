@@ -4,6 +4,7 @@ import { PrivateLayout } from "../../components/layout/PrivateLayout";
 import CompanySwitcher from "../../components/lib/companySwitcher/CompanySwitcher";
 import AnnouncementsFeed from "../../components/lib/Announcement/Announcementfeed";
 import EmployeeDetail from "../../components/lib/employee/employeeDetail";
+import { ProtectedRoute } from "../../routes/protected/protected";
 
 export const privateRoutes = [
   {
@@ -11,37 +12,36 @@ export const privateRoutes = [
     element: <PrivateLayout />,
     children: [
       {
-        path: ROUTES.BASE_URL,
-        element: (
-          <>
-            <CompanySwitcher />
-            <EmployeeCardList />
-          </>
-        ),
+        element: <ProtectedRoute allowedRoles={["admin"]} />,
+        children: [
+          {
+            path: ROUTES.BASE_URL,
+            element: (
+              <>
+                <CompanySwitcher />
+                <EmployeeCardList />
+              </>
+            ),
+          },
+          {
+            path: ROUTES.EMPLOYEES,
+            element: <EmployeeCardList />,
+          },
+          {
+            path: ROUTES.ANNOUNCEMENT,
+            element: <AnnouncementsFeed isAdmin={true} />,
+          },
+        ],
       },
+
       {
-        path: ROUTES.EMPLOYEES,
-        element: (
-          <>
-            <EmployeeCardList />
-          </>
-        ),
-      },
-      {
-        path: ROUTES.ANNOUNCEMENT,
-        element: (
-          <>
-            <AnnouncementsFeed announcements={[]} />
-          </>
-        ),
-      },
-      {
-        path: `${ROUTES.EMPLOYEES}:id`,
-        element: (
-          <>
-            <EmployeeDetail />
-          </>
-        ),
+        element: <ProtectedRoute allowedRoles={["admin", "employee"]} />,
+        children: [
+          {
+            path: `${ROUTES.EMPLOYEES}:id`,
+            element: <EmployeeDetail />,
+          },
+        ],
       },
     ],
   },

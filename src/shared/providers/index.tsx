@@ -6,6 +6,7 @@ import { ErrorBoundary } from "../../components/provider/ErrorBoundary";
 import { Suspense } from "../../components/provider/Suspense";
 import { ReactRouterProvider } from "../../shared/providers/ReactRouterProvider";
 import { StoreProvider } from "../../shared/providers/StoreProvider";
+import { AuthProvider } from "../../shared/providers/auth";
 
 type Props = {
   children: ReactNode;
@@ -14,6 +15,7 @@ type Props = {
 const contextProviders: React.ElementType[] = [
   StoreProvider,
   ReactRouterProvider,
+  AuthProvider,
 ];
 
 export const AppProvider: FC<Props> = ({ children }) => {
