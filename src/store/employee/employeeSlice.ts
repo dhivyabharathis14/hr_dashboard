@@ -1,7 +1,21 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface Employee {
-  id: string;
+  reportingManager: string;
+  functionalManager: string;
+  grantedLeave: number;
+  availedLeave: any;
+  openingBalance: number;
+  upcomingEvents: any;
+  message: any;
+  starRating: number;
+  performanceReview: any;
+  awards: any;
+  status: string;
+  linkedinUrl: any;
+  githubUrl: any;
+  facebookUrl: any;
+  id: string | number;
   name: string;
   department: string;
   designation?: string;

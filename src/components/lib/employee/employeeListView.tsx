@@ -121,9 +121,7 @@ export const EmployeeListView = () => {
                       <div className="flex-shrink-0 h-10 w-10 relative">
                         <img
                           className="h-10 w-10 rounded-full"
-                          src={`https://randomuser.me/api/portraits/men/${
-                            emp.id % 100
-                          }.jpg`}
+                          src={`https://randomuser.me/api/portraits/men/${emp.id}.jpg`}
                           alt={emp.name}
                         />
                         <span

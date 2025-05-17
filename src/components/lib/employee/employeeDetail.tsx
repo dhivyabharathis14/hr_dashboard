@@ -18,7 +18,7 @@ import {
   faGithub,
   faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
-import GoalSuggestion from "../../../components/lib/SuggestionBot.tsx/suggestion";
+// import GoalSuggestion from "../../../components/lib/SuggestionBot.tsx/suggestion";
 
 const EmployeeDetail = () => {
   const { id } = useParams();
@@ -82,9 +82,7 @@ const EmployeeDetail = () => {
             <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col items-center">
               <div className="relative mb-4">
                 <img
-                  src={`https://randomuser.me/api/portraits/men/${
-                    employee.id % 100
-                  }.jpg`}
+                  src={`https://randomuser.me/api/portraits/men/${employee.id}.jpg`}
                   alt={employee.name}
                   className="h-40 w-40 rounded-full border-4 border-white shadow-md"
                 />
@@ -524,7 +522,7 @@ const EmployeeDetail = () => {
                 </div>
               </div>
             </div>
-            <GoalSuggestion employee={employee.name} />
+            {/* <GoalSuggestion employee={employee.name} /> */}
           </div>
         </div>
       </div>

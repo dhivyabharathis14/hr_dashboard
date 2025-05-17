@@ -61,9 +61,7 @@ export const EmployeeCardList = () => {
               <div className="relative mb-4">
                 <img
                   className="h-24 w-24 rounded-full border-4 border-white shadow-md"
-                  src={`https://randomuser.me/api/portraits/men/${
-                    emp.id % 100
-                  }.jpg`}
+                  src={`https://randomuser.me/api/portraits/men/${emp.id}.jpg`}
                   alt={emp.name}
                 />
                 <span

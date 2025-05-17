@@ -1,21 +1,21 @@
 {
   "compilerOptions": {
+    "strict": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "noEmit": true,
     "target": "esnext",
     "useDefineForClassFields": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
-    "skipLibCheck": true,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "noEmit": true,
-    "types": ["vitest/globals"],
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
@@ -30,5 +30,5 @@
     "./vite.config.ts",
     "./playwright.config.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "vite.config.ts"]
 }

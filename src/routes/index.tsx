@@ -1,6 +1,6 @@
 import { privateRoutes } from "../routes/private";
 import { Suspense } from "../components/provider/Suspense";
-import { Loader } from "../shared/Loader";
+// import { Loader } from "../shared/Loader";
 import { useRoutes } from "react-router-dom";
 import { publicRoutes } from "../routes/public";
 import { useAuth } from "../shared/providers/auth";
@@ -13,7 +13,7 @@ export const AppRoutes = () => {
     <Suspense
       fallback={
         <div className="flex h-screen w-full items-center justify-center">
-          <Loader />
+          Loading...
         </div>
       }>
       {element}
