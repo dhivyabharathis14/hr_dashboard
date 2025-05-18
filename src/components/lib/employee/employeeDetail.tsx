@@ -26,7 +26,7 @@ const EmployeeDetail = () => {
   const employee = useSelector((state: RootState) =>
     state.employee.employees.find((e) => e.id === employeeId)
   );
-
+  const userRole = localStorage.getItem("userRole");
   const [isEditing, setIsEditing] = useState(false);
   const [designation, setDesignation] = useState(employee?.designation || "");
   const [reportingManager, setReportingManager] = useState(
@@ -316,17 +316,19 @@ const EmployeeDetail = () => {
                   </svg>
                   Employee Information
                 </h3>
-                <button
-                  className={`px-4 py-1 rounded-full text-sm font-medium transition ${
-                    isEditing
-                      ? "bg-green-100 text-green-800 hover:bg-green-200"
-                      : "bg-blue-100 text-blue-800 hover:bg-blue-200"
-                  }`}
-                  onClick={() =>
-                    isEditing ? handleSave() : setIsEditing(true)
-                  }>
-                  {isEditing ? "Save Changes" : "Edit Profile"}
-                </button>
+                {userRole == "admin" && (
+                  <button
+                    className={`px-4 py-1 rounded-full text-sm font-medium transition ${
+                      isEditing
+                        ? "bg-green-100 text-green-800 hover:bg-green-200"
+                        : "bg-blue-100 text-blue-800 hover:bg-blue-200"
+                    }`}
+                    onClick={() =>
+                      isEditing ? handleSave() : setIsEditing(true)
+                    }>
+                    {isEditing ? "Save Changes" : "Edit Profile"}
+                  </button>
+                )}
               </div>
 
               <div className="grid md:grid-cols-2 gap-4 text-gray-700">
@@ -477,9 +479,9 @@ const EmployeeDetail = () => {
                     </p>
                   )}
                 </div>
-                <div className="bg-red-50 p-1 rounded-lg text-center">
+                <div className="bg-pink-50 p-1 rounded-lg text-center">
                   <h4 className="text-sm font-medium text-gray-600">Availed</h4>
-                  <p className="text-2xl font-bold text-red-700 mt-1">
+                  <p className="text-2xl font-bold text-pink-300-700 mt-1">
                     {employee?.availedLeave}
                   </p>
                 </div>
@@ -498,23 +500,23 @@ const EmployeeDetail = () => {
                       <XAxis dataKey="name" />
                       <YAxis allowDecimals={false} />
                       <Tooltip />
-                      <Legend />
+                      {/* <Legend /> */}
                       <Bar
                         dataKey="GrantedLeave"
                         stackId="a"
-                        fill="pink"
+                        fill="blue"
                         radius={[3, 3, 0, 0]}
                       />
                       <Bar
                         dataKey="AvailedLeave"
                         stackId="a"
-                        fill="pink"
+                        fill="blue"
                         radius={[3, 3, 0, 0]}
                       />
                       <Bar
                         dataKey="AvailableBalance"
                         stackId="a"
-                        fill="pink"
+                        fill="blue"
                         radius={[3, 3, 0, 0]}
                       />
                     </BarChart>

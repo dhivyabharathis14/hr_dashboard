@@ -59,7 +59,7 @@ export const Sidebar = () => {
             className={`flex items-center rounded-lg px-3 py-2.5 transition-all ${
               activeKey === "home"
                 ? "bg-purple-600 text-black"
-                : "text-black-300 hover:bg-slate-700"
+                : "text-black-300 hover:bg-purple-700"
             }`}>
             <UserBadgeIcon className={isExpanded ? "mr-3" : "mx-auto"} />
             {isExpanded && <span>Dashboard</span>}
@@ -73,7 +73,7 @@ export const Sidebar = () => {
                 className={`flex items-center rounded-lg px-3 py-2.5 transition-all ${
                   activeKey === "employees"
                     ? "bg-purple-600 text-black"
-                    : "text-black-300 hover:bg-slate-700"
+                    : "text-black-300 hover:bg-purple-700"
                 }`}>
                 <PeoplesMapIcon className={isExpanded ? "mr-3" : "mx-auto"} />
                 {isExpanded && <span>Employees List</span>}
@@ -84,7 +84,7 @@ export const Sidebar = () => {
                 className={`flex items-center rounded-lg px-3 py-2.5 transition-all ${
                   activeKey === "announcement"
                     ? "bg-purple-600 text-black"
-                    : "text-black-300 hover:bg-slate-700"
+                    : "text-black-300 hover:bg-purple-700"
                 }`}>
                 <PeopleSpeakerIcon
                   className={isExpanded ? "mr-3" : "mx-auto"}
