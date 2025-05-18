@@ -63,10 +63,6 @@ export const privateRoutes = [
               </Suspense>
             ),
           },
-          {
-            path: "*",
-            element: <NotFound />, // Catch-all route
-          },
         ],
       },
       {
