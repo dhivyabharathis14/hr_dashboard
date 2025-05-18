@@ -11,14 +11,17 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [userRole, setUserRole] = useState<UserRole>(null); // default: null (not logged in)
-
+  const [userRole, setUserRole] = useState<UserRole>(() => {
+    return (localStorage.getItem("userRole") as UserRole) || null;
+  });
   const login = (role: UserRole) => {
     setUserRole(role);
+    localStorage.setItem("userRole", role || "");
   };
 
   const logout = () => {
     setUserRole(null);
+    localStorage.removeItem("userRole");
   };
 
   return (

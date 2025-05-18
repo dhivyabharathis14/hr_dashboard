@@ -3,6 +3,8 @@ import { ROUTES } from "../../components/constants/routes";
 import { PrivateLayout } from "../../components/layout/PrivateLayout";
 import { ProtectedRoute } from "../../routes/protected/protected";
 import { Suspense } from "../../components/provider/Suspense";
+import { ErrorBoundary } from "../../components/provider/ErrorBoundary";
+import { NotFound } from "../../components/pages/common/404.page";
 
 const EmployeeCardList = lazy(
   () => import("../../components/lib/employee/employee")
@@ -23,7 +25,12 @@ const EmployeeDirectory = lazy(
 export const privateRoutes = [
   {
     path: ROUTES.BASE_URL,
-    element: <PrivateLayout />,
+
+    element: (
+      <ErrorBoundary>
+        <PrivateLayout />
+      </ErrorBoundary>
+    ),
     children: [
       {
         element: <ProtectedRoute allowedRoles={["admin"]} />,
@@ -31,7 +38,8 @@ export const privateRoutes = [
           {
             path: ROUTES.BASE_URL,
             element: (
-              <Suspense fallback={<div>Loading Dashboard...</div>}>
+              <Suspense
+                fallback={<div className="ml-80">Loading Dashboard...</div>}>
                 <>
                   <CompanySwitcher />
                   <EmployeeDirectory />
@@ -54,6 +62,10 @@ export const privateRoutes = [
                 <AnnouncementsFeed isAdmin={true} />
               </Suspense>
             ),
+          },
+          {
+            path: "*",
+            element: <NotFound />, // Catch-all route
           },
         ],
       },
