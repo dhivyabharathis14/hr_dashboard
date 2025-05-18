@@ -34,7 +34,7 @@ The app uses a private layout component to restrict access to authenticated user
 
 Routes are protected and rendered conditionally depending on login state.
 
-Layouts include a shared sidebar, topbar (with user/company info), and dynamic content.
+Layouts include a shared sidebar and dynamic content.
 
 🏢 Company Switcher
 A dropdown menu is implemented to switch between companies in a multi-tenant environment.
@@ -48,7 +48,7 @@ Admin and Employee Roles:
 
 Admins can manage employees, view leave requests, publish announcements, etc.
 
-Employees can view their own profiles, leave balances, and announcements.
+Employees can view their own profiles, leave balances.
 
 Role-based routing ensures each user sees only the pages and data relevant to their access level.
 
