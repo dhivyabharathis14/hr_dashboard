@@ -24,8 +24,11 @@ Follow these steps to run the application in your local development environment:
 
 ### Run the Application Using Docker
 
+```bash
 docker build -f deployment/Dockerfile -t hr-dashboard .
 docker run -p 5173:5173 hr-dashboard
+
+```
 
 The HR Dashboard is built with a modular and scalable front-end architecture using React (TypeScript) and supports the following key features:
 
